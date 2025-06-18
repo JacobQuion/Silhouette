@@ -13,4 +13,4 @@ This code is for Project Silhouette, an industrial-grade bi-pedal robot made in 
 ## **Major Directories**
 - PENDING (Description)
 - PENDING (Description)
-- - PENDING (Description)
+- PENDING (Description)
