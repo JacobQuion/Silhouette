@@ -1,51 +1,85 @@
-//====================SILHOUETTE====================
+//====================SILHOUETTE (README)====================
+/* This repository contains code for Silhouette, an industrial-grade bipedal robot 
+   developed in collaboration with UCI's Biorobotics Laboratory. 
+   This system tightly integrates precise hardware with advanced software to explore 
+   on-the-fly gait analysis, balance correction, and adaptive motion profiling 
+   using motor control and sensor feedback. */
 
-//Arduino Documentation Examples: https://docs.arduino.cc/built-in-examples/
-//Arduino Web API Link: https://docs.arduino.cc/learn/programming/reference/
+//====================CONSTANTS====================
+const int EXECUTING_LED_BLINK_FREQUENCY = 50; //Milliseconds 
 
-//Programming Executing (Debugging LED)
-const int EXECUTING_LED_BLINK_DELAY = 100; //Value is in milliseconds (divide by 1000 for value in seconds)
+const int ENA_LEFT = 4; //Green
+const int IN1 = 5; //Blue
+const int IN2 = 6; //Purple
 
-//Left Leg (Motor - L)
-const int IN1 = 6; //Controls Direction
-const int IN2 = 7; //Works with IN1
-const int ENL = 8; //Controls Speed via PWM
+const int ENA_RIGHT = 8; //Green
+const int IN3 = 9; //Blue
+const int IN4 = 10; //Purple
 
-//Right Leg (Motor - B)
-const int IN3 = 10; //Controls Direction
-const int IN4 = 11; //Works with IN3
-const int ENR = 3; //Controls Speed via PWM
+const int SILHOUETTE_SPEED = 255; //PWM signal ranging from 0-255 inclusive, 255 being max speed
 
-//Speed Adjustments
-int LEFT_MOTOR_SPEED = 200; //PWM signal ranges from 0 to 255 inclusive, 255 being full power
-int RIGHT_MOTOR_SPEED = 200; //PWM signal ranges from 0 to 255 inclusive, 255 being full power
-int FIRST_STEP_TIME_OFFSET = 500; //Value is in milliseconds (divide by 1000 for value in seconds)
+//====================SILHOUETTE SUPER STATES====================
+enum SilhouetteState {
+  FORWARD,
+  BACKWARD,
+  BRAKE,
+  COAST
+};
 
+SilhouetteState SILHOUETTE_STATE = BACKWARD; //Current SILHOUETTE State
+
+//====================SETUP LOOP====================
 void setup() {
+  //Initialization of onboard LED and arduino ports for use in the PERIODIC LOOP
   pinMode(LED_BUILTIN, OUTPUT);
-
-  pinMode(IN1, OUTPUT); //Sets IN1 as an output pin
-  pinMode(IN2, OUTPUT); //Sets IN2 as an output pin
-  pinMode(ENL, OUTPUT); //Sets ENL as an output pin
-  
-  pinMode(IN3, OUTPUT); //Sets IN3 L as an output pin
-  pinMode(IN4, OUTPUT); //Sets IN4 as an output pin
-  pinMode(ENR, OUTPUT); //Sets ENR as an output pin
+  pinMode(ENA_LEFT, OUTPUT);
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(ENA_RIGHT, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
 }
 
+//====================PERIODIC LOOP====================
 void loop() {
-  digitalWrite(LED_BUILTIN, HIGH);  // turn the LED on (HIGH is the voltage level)
-  delay(EXECUTING_LED_BLINK_DELAY);                      // wait for a second
-  digitalWrite(LED_BUILTIN, LOW);   // turn the LED off by making the voltage LOW
-  delay(EXECUTING_LED_BLINK_DELAY);   
+  //Blinks onboard diagnostic LED during execution
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(EXECUTING_LED_BLINK_FREQUENCY);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(EXECUTING_LED_BLINK_FREQUENCY);
 
-  digitalWrite(IN1, HIGH); //Sets IN1 HIGH (on) to go forward
-  digitalWrite(IN2, LOW); //Sets IN2 LOW (off) to guarantee forward direction
-  analogWrite(ENL, LEFT_MOTOR_SPEED); //PWM signal ranges from 0 to 255 inclusive, 255 being full power
+  //Applies intelligent motor control based on PWM input and SILHOUETTE state
+  analogWrite(ENA_LEFT, SILHOUETTE_SPEED);
+  analogWrite(ENA_RIGHT, SILHOUETTE_SPEED);
+  setSilhouetteState(SILHOUETTE_STATE);
+}
 
-  //delay(FIRST_STEP_TIME_OFFSET);
+//====================FUNCTIONAL METHODS====================
+void setSilhouetteState(SilhouetteState silhouetteState) {
+  switch (silhouetteState) {
+    case FORWARD:
+      digitalWrite(IN1, LOW); digitalWrite(IN2, HIGH);
+      digitalWrite(IN3, LOW); digitalWrite(IN4, HIGH);
+      break;
 
-  digitalWrite(IN3, HIGH); //Sets IN3 HIGH (on) to go forward
-  digitalWrite(IN4, LOW); //Sets IN4 LOW (off) to guarantee forward direction
-  analogWrite(ENR, RIGHT_MOTOR_SPEED); //PWM signal ranges from 0 to 255 inclusive, 255 being full power
+    case BACKWARD:
+      digitalWrite(IN1, HIGH); digitalWrite(IN2, LOW);
+      digitalWrite(IN3, HIGH); digitalWrite(IN4, LOW);
+      break;
+
+    case BRAKE:
+      digitalWrite(IN1, HIGH); digitalWrite(IN2, HIGH);
+      digitalWrite(IN3, HIGH); digitalWrite(IN4, HIGH);
+      break;
+
+    case COAST:
+      digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+      digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+      break;
+
+    default:
+      digitalWrite(IN1, LOW); digitalWrite(IN2, LOW);
+      digitalWrite(IN3, LOW); digitalWrite(IN4, LOW);
+      break;
+  }
 }
