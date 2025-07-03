@@ -11,6 +11,6 @@ This repository contains code for Silhouette, an industrial-grade turret mechani
 - FEATURE
 
 ## **Major Directories**
-- [Silhouette Master Sheet](https://docs.google.com/spreadsheets/d/1T7hXV3S2Ig0aU6FeqlcYBCahwmTHpC9RDhpLtIZTock/edit?usp=sharing) (Contains project timeline and bill of parts)
-- [Source Project](https://github.com/JacobQuion/Silhouette/tree/main/src/main/java/frc/robot) (Contains programs and commands for the turret subsystem)
+- [Silhouette Master Sheet](https://docs.google.com/spreadsheets/d/1T7hXV3S2Ig0aU6FeqlcYBCahwmTHpC9RDhpLtIZTock/edit?usp=sharing) (project timeline and bill of parts)
+- [Source Project](https://github.com/JacobQuion/Silhouette/tree/main/src/main/java/frc/robot) (programs and commands for the turret subsystem)
 - PENDING (Description)
