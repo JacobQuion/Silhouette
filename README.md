@@ -11,6 +11,6 @@ This repository contains code for Silhouette, an industrial-grade turret mechani
 - FEATURE
 
 ## **Major Directories**
-- PENDING (Description)
+- [Silhouette Master Sheet](https://docs.google.com/spreadsheets/d/1T7hXV3S2Ig0aU6FeqlcYBCahwmTHpC9RDhpLtIZTock/edit?usp=sharing) (Contains bill of parts and timeline)
 - PENDING (Description)
 - PENDING (Description)
