@@ -9,6 +9,21 @@ public class Constants {
     public static final double JOYSTICK_JOG_SPEED_MULTIPLIER = 0.25;
     public static final double CONTROLLER_RUMBLE_INTENSITY = 1.0;
 
+    //====================Arm====================
+    public static final int ARM_MOTOR_ID = 20;
+
+    public static final double ARM_kP = 0.0;
+    public static final double ARM_kI = 0.0;
+    public static final double ARM_kD = 0.0;
+    public static final double ARM_kG = 0.0;
+    public static final double ARM_kVelo = 0.0;
+    public static final double ARM_kAccel = 0.0;
+    public static final double ARM_CURRENT_LIMIT = 0.0;
+    public static final double ARM_SETPOINT_TOLERANCE = 0.0;
+ 
+    public static final double ARM_ZERO_SETPOINT = 0.0;
+    public static final double ARM_TRIAL_SETPOINT = 0.0;
+
     //====================Turret====================
     public static final int TURRET_MOTOR_ID = 10;
 
@@ -23,4 +38,6 @@ public class Constants {
 
     public static final double TURRET_ZERO_SETPOINT = 0.0;
     public static final double TURRET_TRIAL_SETPOINT = 0.0;
+
+   
 }

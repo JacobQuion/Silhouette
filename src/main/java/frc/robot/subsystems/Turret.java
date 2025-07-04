@@ -24,12 +24,12 @@ public class Turret extends SubsystemBase {
         System.out.println("====================Turret Subsystem Online====================");
 
         //HotRefreshTurretConfig
-        // SmartDashboard.putNumber("Turret kG", 0.0);
-        // SmartDashboard.putNumber("Turret kP", 0.0);
-        // SmartDashboard.putNumber("Turret kI", 0.0);
-        // SmartDashboard.putNumber("Turret kD", 0.0);
-        // SmartDashboard.putNumber("Turret kVelo", 0.0);
-        // SmartDashboard.putNumber("Turret kAccel", 0.0);
+        SmartDashboard.putNumber("Turret kG", 0.0);
+        SmartDashboard.putNumber("Turret kP", 0.0);
+        SmartDashboard.putNumber("Turret kI", 0.0);
+        SmartDashboard.putNumber("Turret kD", 0.0);
+        SmartDashboard.putNumber("Turret kVelo", 0.0);
+        SmartDashboard.putNumber("Turret kAccel", 0.0);
 
         //====================Turret Subsystem====================
         var turretMotorConfigs = new TalonFXConfiguration();
