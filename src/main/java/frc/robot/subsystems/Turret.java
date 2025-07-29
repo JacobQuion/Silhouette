@@ -10,7 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Turret extends SubsystemBase {
-    private final TalonFX turretMotor = new TalonFX(Constants.TURRET_MOTOR_ID);
+    private final TalonFX turretMotor = new TalonFX(Constants.TURRET_MOTOR_ID, "rio");
 
     private double setpoint;
 
@@ -23,13 +23,15 @@ public class Turret extends SubsystemBase {
     public Turret() {
         System.out.println("====================Turret Subsystem Online====================");
 
+        turretMotor.setPosition(Constants.ABSOLUTE_ZERO);
+
         //HotRefreshTurretConfig
-        SmartDashboard.putNumber("Turret kG", 0.0);
-        SmartDashboard.putNumber("Turret kP", 0.0);
-        SmartDashboard.putNumber("Turret kI", 0.0);
-        SmartDashboard.putNumber("Turret kD", 0.0);
-        SmartDashboard.putNumber("Turret kVelo", 0.0);
-        SmartDashboard.putNumber("Turret kAccel", 0.0);
+        // SmartDashboard.putNumber("Turret kG", 0.0);
+        // SmartDashboard.putNumber("Turret kP", 0.0);
+        // SmartDashboard.putNumber("Turret kI", 0.0);
+        // SmartDashboard.putNumber("Turret kD", 0.0);
+        // SmartDashboard.putNumber("Turret kVelo", 0.0);
+        // SmartDashboard.putNumber("Turret kAccel", 0.0);
 
         //====================Turret Subsystem====================
         var turretMotorConfigs = new TalonFXConfiguration();
@@ -61,7 +63,6 @@ public class Turret extends SubsystemBase {
     @Override
     public void periodic() {
         logTurretData();
-
     }
 
     //====================Turret Methods====================
@@ -93,9 +94,15 @@ public class Turret extends SubsystemBase {
     }
 
     public void goToTurretSetpoint() {
-        final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
+        final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(false);
         turretMotor.setControl(m_request.withPosition(this.setpoint));
-        turretMotor.setControl(m_request.withPosition(this.setpoint));
+    }
+
+    public void sendTurretSetpoint(double setpoint) {
+        this.setpoint = setpoint;
+
+        MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
+        turretMotor.setControl(m_request.withPosition(setpoint));
     }
 
     public boolean isTurretInTolerance() {
@@ -106,23 +113,23 @@ public class Turret extends SubsystemBase {
         }
     }
 
-    public void HotRefreshTurretConfig() {
-        //General Configurations
-        var generalSlotConfigs = new Slot0Configs();
-        generalSlotConfigs.kG = SmartDashboard.getNumber("Turret kG", 0.0);
-        generalSlotConfigs.kP = SmartDashboard.getNumber("Turret kP", 0.0);
-        generalSlotConfigs.kI = SmartDashboard.getNumber("Turret kI", 0.0);
-        generalSlotConfigs.kD = SmartDashboard.getNumber("Turret kD", 0.0);
+    // public void HotRefreshTurretConfig() {
+    //     //General Configurations
+    //     var generalSlotConfigs = new Slot0Configs();
+    //     generalSlotConfigs.kG = SmartDashboard.getNumber("Turret kG", 0.0);
+    //     generalSlotConfigs.kP = SmartDashboard.getNumber("Turret kP", 0.0);
+    //     generalSlotConfigs.kI = SmartDashboard.getNumber("Turret kI", 0.0);
+    //     generalSlotConfigs.kD = SmartDashboard.getNumber("Turret kD", 0.0);
 
-        //Motion Magic
-        var motionMagicConfigs = new MotionMagicConfigs();
-        motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Turret kVelo", 0.0);
-        motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Turret kAccel", 0.0);
+    //     //Motion Magic
+    //     var motionMagicConfigs = new MotionMagicConfigs();
+    //     motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Turret kVelo", 0.0);
+    //     motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Turret kAccel", 0.0);
 
-        //Applies Configs
-        turretMotor.getConfigurator().apply(generalSlotConfigs);
-        turretMotor.getConfigurator().apply(motionMagicConfigs);
+    //     //Applies Configs
+    //     turretMotor.getConfigurator().apply(generalSlotConfigs);
+    //     turretMotor.getConfigurator().apply(motionMagicConfigs);
 
-        System.out.println("HotRefreshTurretConfig Complete");
-    }
+    //     System.out.println("HotRefreshTurretConfig Complete");
+    // }
 }
