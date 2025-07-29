@@ -10,7 +10,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Arm extends SubsystemBase {
-    private final TalonFX armMotor = new TalonFX(Constants.ARM_MOTOR_ID);
+    private final TalonFX armMotor = new TalonFX(Constants.ARM_MOTOR_ID, "rio");
 
     private double setpoint;
 
@@ -22,6 +22,8 @@ public class Arm extends SubsystemBase {
 
     public Arm() {
         System.out.println("====================Arm Subsystem Online====================");
+
+        armMotor.setPosition(Constants.ABSOLUTE_ZERO);
 
         //HotRefreshArmConfig
         // SmartDashboard.putNumber("Arm kG", 0.0);
@@ -61,7 +63,6 @@ public class Arm extends SubsystemBase {
     @Override
     public void periodic() {
         logArmData();
-
     }
 
     //====================Arm Methods====================
@@ -73,7 +74,7 @@ public class Arm extends SubsystemBase {
         SmartDashboard.putNumber("Arm Motor Position", getArmMotorEncoder());
         SmartDashboard.putNumber("Arm Motor Velocity", getArmMotorVelocity());
         SmartDashboard.putNumber("Arm Desired Setpoint", setpoint);
-        SmartDashboard.putBoolean("Elevator In Tolerance?", isArmInTolerance());
+        SmartDashboard.putBoolean("Arm In Tolerance?", isArmInTolerance());
     }
 
     public void zeroArm() {
@@ -93,9 +94,15 @@ public class Arm extends SubsystemBase {
     }
 
     public void goToArmSetpoint() {
-        final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
+        final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(false);
         armMotor.setControl(m_request.withPosition(this.setpoint));
-        armMotor.setControl(m_request.withPosition(this.setpoint));
+    }
+
+    public void sendArmSetpoint(double setpoint) {
+        this.setpoint = setpoint;
+
+        MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
+        armMotor.setControl(m_request.withPosition(setpoint));
     }
 
     public boolean isArmInTolerance() {
@@ -106,23 +113,23 @@ public class Arm extends SubsystemBase {
         }
     }
 
-    public void HotRefreshArmConfig() {
-        //General Configurations
-        var generalSlotConfigs = new Slot0Configs();
-        generalSlotConfigs.kG = SmartDashboard.getNumber("Arm kG", 0.0);
-        generalSlotConfigs.kP = SmartDashboard.getNumber("Arm kP", 0.0);
-        generalSlotConfigs.kI = SmartDashboard.getNumber("Arm kI", 0.0);
-        generalSlotConfigs.kD = SmartDashboard.getNumber("Arm kD", 0.0);
+    // public void HotRefreshArmConfig() {
+    //     //General Configurations
+    //     var generalSlotConfigs = new Slot0Configs();
+    //     generalSlotConfigs.kG = SmartDashboard.getNumber("Arm kG", 0.0);
+    //     generalSlotConfigs.kP = SmartDashboard.getNumber("Arm kP", 0.0);
+    //     generalSlotConfigs.kI = SmartDashboard.getNumber("Arm kI", 0.0);
+    //     generalSlotConfigs.kD = SmartDashboard.getNumber("Arm kD", 0.0);
 
-        //Motion Magic
-        var motionMagicConfigs = new MotionMagicConfigs();
-        motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Arm kVelo", 0.0);
-        motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Arm kAccel", 0.0);
+    //     //Motion Magic
+    //     var motionMagicConfigs = new MotionMagicConfigs();
+    //     motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Arm kVelo", 0.0);
+    //     motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Arm kAccel", 0.0);
 
-        //Applies Configs
-        armMotor.getConfigurator().apply(generalSlotConfigs);
-        armMotor.getConfigurator().apply(motionMagicConfigs);
+    //     //Applies Configs
+    //     armMotor.getConfigurator().apply(generalSlotConfigs);
+    //     armMotor.getConfigurator().apply(motionMagicConfigs);
 
-        System.out.println("HotRefreshArmConfig Complete");
-    }
+    //     System.out.println("HotRefreshArmConfig Complete");
+    // }
 }
