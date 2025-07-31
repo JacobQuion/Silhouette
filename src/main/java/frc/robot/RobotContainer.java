@@ -20,33 +20,45 @@ public class RobotContainer {
   }
 
   private void configureBindings() {
-        //====================Arm Controller Bindings====================
-        operatorController.leftTrigger().whileTrue(new ArmJogCmd(Arm.getInstance(), () -> -operatorController.getRightY() * Constants.JOYSTICK_JOG_SPEED_MULTIPLIER));
+        //====================Arm Controller Bindings (Triggers + Bumpers)====================
+        //operatorController.leftTrigger().whileTrue(new ArmJogCmd(Arm.getInstance(), () -> -operatorController.getRightY() * Constants.JOYSTICK_JOG_SPEED_MULTIPLIER));
         //operatorController.leftBumper().onTrue(new InstantCommand(Arm.getInstance()::HotRefreshArmConfig));
-        operatorController.povLeft().onTrue(new ArmZeroOverrideCmd(Arm.getInstance()));
+        //operatorController.povLeft().onTrue(new ArmZeroOverrideCmd(Arm.getInstance()));
 
-        operatorController.a().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_INTERMEDIATE_SETPOINT));
-        operatorController.a().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
+        operatorController.leftTrigger().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_1));
+        operatorController.leftTrigger().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
 
-        operatorController.x().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_TIP_UP_SETPOINT));
-        operatorController.x().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
+        operatorController.leftBumper().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_2));
+        operatorController.leftBumper().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
 
-        //====================Turret Controller Bindings====================
-        operatorController.rightTrigger().whileTrue(new TurretJogCmd(Turret.getInstance(), () -> operatorController.getRightX() * Constants.JOYSTICK_JOG_SPEED_MULTIPLIER));
+        operatorController.rightBumper().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_3));
+        operatorController.rightBumper().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
+
+        operatorController.rightTrigger().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_4));
+        operatorController.rightTrigger().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
+
+        //====================Turret Controller Bindings (ABXY)====================
+        //operatorController.rightTrigger().whileTrue(new TurretJogCmd(Turret.getInstance(), () -> operatorController.getRightX() * Constants.JOYSTICK_JOG_SPEED_MULTIPLIER));
         //operatorController.rightBumper().onTrue(new InstantCommand(Turret.getInstance()::HotRefreshTurretConfig));
-        operatorController.povRight().onTrue(new TurretZeroOverrideCmd(Turret.getInstance()));
+        //operatorController.povRight().onTrue(new TurretZeroOverrideCmd(Turret.getInstance()));
 
-        operatorController.b().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_RIGHT_INTERMEDIATE_SETPOINT));
+        operatorController.a().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_SETPOINT_1));
+        operatorController.a().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
+
+        operatorController.b().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_SETPOINT_2));
         operatorController.b().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
-        operatorController.y().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_LEFT_INTERMEDIATE_SETPOINT));
+        operatorController.x().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_SETPOINT_3));
+        operatorController.x().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
+
+        operatorController.y().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_SETPOINT_4));
         operatorController.y().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
         //====================Trajectory Controller Bindings====================
-        operatorController.povUp().whileTrue(new ArmTrajectoryCmd(Arm.getInstance(), 0.0, 0.4, 0.8, 0.12, 0.16, 0.20));
-        operatorController.povUp().onFalse(new ArmTrajectoryCmd(Arm.getInstance(), 0.20, 0.16, 0.12, 0.8, 0.4, 0.0));
+        operatorController.povUp().whileTrue(new ArmTrajectoryCmd(Arm.getInstance(), 0.0, 0.1, 0.15, 0.2, 0.25, 0.3));
+        operatorController.povUp().onFalse(new ArmTrajectoryCmd(Arm.getInstance(), 0.3, 0.25, 0.2, 0.15, 0.1, 0.0));
 
-        operatorController.povDown().whileTrue(new TurretTrajectoryCmd(Turret.getInstance(), 0.0, 0.4, 0.8, 0.12, 0.16, 0.20));
-        operatorController.povDown().onFalse(new TurretTrajectoryCmd(Turret.getInstance(), 0.20, 0.16, 0.12, 0.8, 0.4, 0.0));
+        operatorController.povDown().whileTrue(new TurretTrajectoryCmd(Turret.getInstance(), 0.0, 0.2, 0.4, 0.6, 0.8, 1.0));
+        operatorController.povDown().onFalse(new TurretTrajectoryCmd(Turret.getInstance(), 1.0, 0.8, 0.6, 0.4, 0.2, 0.0));
   }
 }
