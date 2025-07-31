@@ -37,7 +37,7 @@ public class RobotContainer {
         operatorController.rightTrigger().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_4));
         operatorController.rightTrigger().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
 
-        //====================Turret Controller Bindings (ABXY)====================
+        //====================Turret Controller Bindings (ABXY, Start, Back)====================
         //operatorController.rightTrigger().whileTrue(new TurretJogCmd(Turret.getInstance(), () -> operatorController.getRightX() * Constants.JOYSTICK_JOG_SPEED_MULTIPLIER));
         //operatorController.rightBumper().onTrue(new InstantCommand(Turret.getInstance()::HotRefreshTurretConfig));
         //operatorController.povRight().onTrue(new TurretZeroOverrideCmd(Turret.getInstance()));
@@ -53,6 +53,12 @@ public class RobotContainer {
 
         operatorController.y().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_SETPOINT_4));
         operatorController.y().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
+
+        operatorController.start().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_1));
+        operatorController.start().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
+
+        operatorController.back().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_2));
+        operatorController.back().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
         //====================Trajectory Controller Bindings====================
         operatorController.povUp().whileTrue(new ArmTrajectoryCmd(Arm.getInstance(), 0.0, 0.1, 0.15, 0.2, 0.25, 0.3));
