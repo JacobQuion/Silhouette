@@ -7,6 +7,7 @@ import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
+import com.ctre.phoenix6.signals.GravityTypeValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class Arm extends SubsystemBase {
@@ -25,7 +26,7 @@ public class Arm extends SubsystemBase {
 
         armMotor.setPosition(Constants.ABSOLUTE_ZERO);
 
-        //HotRefreshArmConfig
+        // //HotRefreshArmConfig
         // SmartDashboard.putNumber("Arm kG", 0.0);
         // SmartDashboard.putNumber("Arm kP", 0.0);
         // SmartDashboard.putNumber("Arm kI", 0.0);
@@ -45,6 +46,7 @@ public class Arm extends SubsystemBase {
         generalSlotConfigs.kP = Constants.ARM_kP;
         generalSlotConfigs.kI = Constants.ARM_kI;
         generalSlotConfigs.kD = Constants.ARM_kD;
+        generalSlotConfigs.GravityType = GravityTypeValue.Arm_Cosine;
 
         //Motion Magic
         var motionMagicConfigs = armMotorConfigs.MotionMagic;
