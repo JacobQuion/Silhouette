@@ -43,4 +43,6 @@ public class Constants {
     public static final double TURRET_SETPOINT_2 = 0.5;
     public static final double TURRET_SETPOINT_3 = -0.25;
     public static final double TURRET_SETPOINT_4 = -0.5;
+    public static final double TURRET_FULL_SPIN_SETPOINT_1 = -1.0;
+    public static final double TURRET_FULL_SPIN_SETPOINT_2 = 1.0;
 }
