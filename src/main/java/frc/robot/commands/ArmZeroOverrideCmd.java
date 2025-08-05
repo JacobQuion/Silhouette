@@ -28,7 +28,7 @@ public class ArmZeroOverrideCmd extends Command {
 
     @Override
     public boolean isFinished() {
-        if (arm.getArmMotorEncoder() == Constants.ABSOLUTE_ZERO) {
+        if (arm.getArmMotorPositionInDegrees() == Constants.ABSOLUTE_ZERO) {
             return true;
         } else {
             return false;

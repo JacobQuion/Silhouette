@@ -7,42 +7,58 @@ public class Constants {
     //====================Controller====================
     public static final int OPERATOR_CONTROLLER_PORT = 0;
     public static final double JOYSTICK_JOG_SPEED_MULTIPLIER = 0.1; //0.035
+    public static final double ROTATIONS_TO_DEGREES_MULTIPLIER = 360.0;
+    public static final double DEGREES_TO_ROTATIONS_MULTIPLIER = 1.0 / 360.0;
 
     //====================Arm====================
     public static final int ARM_MOTOR_ID = 10;
 
-    public static final double ARM_kP = 10.0; //20.0
-    public static final double ARM_kI = 0.0; //0.05
-    public static final double ARM_kD = 0.0; //0.7
-    public static final double ARM_kG = 0.3; //0.5
+    public static final double ARM_kP = 10.0; //10.0
+    public static final double ARM_kI = 0.0; //0.0
+    public static final double ARM_kD = 0.0; //0.0
+    public static final double ARM_kG = 0.3; //0.3
     public static final double ARM_kVelo = 1.0; //1.0
     public static final double ARM_kAccel = 2.0; //2.0
     public static final double ARM_CURRENT_LIMIT = 40.0;
-    public static final double ARM_SETPOINT_TOLERANCE = 0.03;
+    public static final double ARM_SETPOINT_TOLERANCE = 5.0;
  
-    public static final double ARM_ZERO_SETPOINT = 0.075; //0.0
-    public static final double ARM_SETPOINT_1 = 0.14;//0.06
-    public static final double ARM_SETPOINT_2 = 0.19; //0.12
-    public static final double ARM_SETPOINT_3 = 0.25; //0.12
-    public static final double ARM_SETPOINT_4 = 0.3; //0.12
+    public static final double ARM_ZERO_SETPOINT = 27.0; //0.075
+    public static final double ARM_SETPOINT_1 = 50.4;//0.14
+    public static final double ARM_SETPOINT_2 = 68.4; //0.19
+    public static final double ARM_SETPOINT_3 = 90.0; //0.25
+    public static final double ARM_SETPOINT_4 = 108.0; //0.3
+
+    public static final double ARM_TRAJ_1_IMP = 0.0; 
+    public static final double ARM_TRAJ_2_IMP = 36.0; 
+    public static final double ARM_TRAJ_3_IMP = 54.0; 
+    public static final double ARM_TRAJ_4_IMP = 72.0; 
+    public static final double ARM_TRAJ_5_IMP = 90.0; 
+    public static final double ARM_TRAJ_6_IMP = 108.0; 
 
     //====================Turret====================
     public static final int TURRET_MOTOR_ID = 20;
 
-    public static final double TURRET_kP = 30.5; //5.5
+    public static final double TURRET_kP = 30.5; //30.5
     public static final double TURRET_kI = 0.0; //0.0
-    public static final double TURRET_kD = 0.0; //0.5
+    public static final double TURRET_kD = 0.0; //0.0
     public static final double TURRET_kG = 0.075; //0.075
     public static final double TURRET_kVelo = 1.0; //1.0
     public static final double TURRET_kAccel = 2.0; //2.0
     public static final double TURRET_CURRENT_LIMIT = 40.0;
-    public static final double TURRET_SETPOINT_TOLERANCE = 0.05;
+    public static final double TURRET_SETPOINT_TOLERANCE = 5.0;
 
-    public static final double TURRET_ZERO_SETPOINT = 0.0;
-    public static final double TURRET_SETPOINT_1 = 0.25;
-    public static final double TURRET_SETPOINT_2 = 0.5;
-    public static final double TURRET_SETPOINT_3 = -0.25;
-    public static final double TURRET_SETPOINT_4 = -0.5;
-    public static final double TURRET_FULL_SPIN_SETPOINT_1 = -1.0;
-    public static final double TURRET_FULL_SPIN_SETPOINT_2 = 1.0;
+    public static final double TURRET_ZERO_SETPOINT = 0.0; //0.0
+    public static final double TURRET_SETPOINT_1 = 90.0; //0.25
+    public static final double TURRET_SETPOINT_2 = 180.0; //0.5
+    public static final double TURRET_SETPOINT_3 = -90.0; //-0.25
+    public static final double TURRET_SETPOINT_4 = -180.0; //-0.5
+    public static final double TURRET_FULL_SPIN_SETPOINT_1 = -360.0; //-1.0
+    public static final double TURRET_FULL_SPIN_SETPOINT_2 = 360.0; //1.0
+
+    public static final double TURRET_TRAJ_1_IMP = 0.0; 
+    public static final double TURRET_TRAJ_2_IMP = 72.0; 
+    public static final double TURRET_TRAJ_3_IMP = 144.0; 
+    public static final double TURRET_TRAJ_4_IMP = 216.0; 
+    public static final double TURRET_TRAJ_5_IMP = 288.0; 
+    public static final double TURRET_TRAJ_6_IMP = 360.0; 
 }
