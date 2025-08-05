@@ -71,22 +71,22 @@ public class Turret extends SubsystemBase {
     }
 
     public void logTurretData() {
-        SmartDashboard.putNumber("Turret Motor Position", getTurretMotorEncoder());
-        SmartDashboard.putNumber("Turret Motor Velocity", getTurretMotorVelocity());
+        SmartDashboard.putNumber("Turret Motor Position", getTurretMotorPositionInDegrees());
+        SmartDashboard.putNumber("Turret Motor Velocity", getTurretMotorVelocityInDPS());
         SmartDashboard.putNumber("Turret Desired Setpoint", setpoint);
-        SmartDashboard.putBoolean("Elevator In Tolerance?", isTurretInTolerance());
+        SmartDashboard.putBoolean("Turret In Tolerance?", isTurretInTolerance());
     }
 
     public void zeroTurret() {
         turretMotor.setPosition(Constants.ABSOLUTE_ZERO);
     }
 
-    public double getTurretMotorEncoder() {
-        return turretMotor.getPosition().getValueAsDouble();
+    public double getTurretMotorPositionInDegrees() {
+        return turretMotor.getPosition().getValueAsDouble() * Constants.ROTATIONS_TO_DEGREES_MULTIPLIER;
     }
 
-    public double getTurretMotorVelocity() {
-        return turretMotor.getVelocity().getValueAsDouble();
+    public double getTurretMotorVelocityInDPS() {
+        return turretMotor.getVelocity().getValueAsDouble() * Constants.ROTATIONS_TO_DEGREES_MULTIPLIER;
     }
  
     public void setTurretSetpoint(double setpoint) {
@@ -95,18 +95,18 @@ public class Turret extends SubsystemBase {
 
     public void goToTurretSetpoint() {
         final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(false);
-        turretMotor.setControl(m_request.withPosition(this.setpoint));
+        turretMotor.setControl(m_request.withPosition(this.setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
     }
 
     public void sendTurretSetpoint(double setpoint) {
         this.setpoint = setpoint;
 
         MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
-        turretMotor.setControl(m_request.withPosition(setpoint));
+        turretMotor.setControl(m_request.withPosition(setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
     }
 
     public boolean isTurretInTolerance() {
-        if (Math.abs(setpoint - getTurretMotorEncoder()) < Constants.TURRET_SETPOINT_TOLERANCE) {
+        if (Math.abs(setpoint - getTurretMotorPositionInDegrees()) < Constants.TURRET_SETPOINT_TOLERANCE) {
             return true;
         } else {
             return false;
