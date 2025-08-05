@@ -73,8 +73,8 @@ public class Arm extends SubsystemBase {
     }
 
     public void logArmData() {
-        SmartDashboard.putNumber("Arm Motor Position", getArmMotorEncoder());
-        SmartDashboard.putNumber("Arm Motor Velocity", getArmMotorVelocity());
+        SmartDashboard.putNumber("Arm Motor Position", getArmMotorPositionInDegrees());
+        SmartDashboard.putNumber("Arm Motor Velocity", getArmMotorVelocityInDPS());
         SmartDashboard.putNumber("Arm Desired Setpoint", setpoint);
         SmartDashboard.putBoolean("Arm In Tolerance?", isArmInTolerance());
     }
@@ -83,12 +83,12 @@ public class Arm extends SubsystemBase {
         armMotor.setPosition(Constants.ABSOLUTE_ZERO);
     }
 
-    public double getArmMotorEncoder() {
-        return armMotor.getPosition().getValueAsDouble();
+    public double getArmMotorPositionInDegrees() {
+        return armMotor.getPosition().getValueAsDouble() * Constants.ROTATIONS_TO_DEGREES_MULTIPLIER;
     }
 
-    public double getArmMotorVelocity() {
-        return armMotor.getVelocity().getValueAsDouble();
+    public double getArmMotorVelocityInDPS() {
+        return armMotor.getVelocity().getValueAsDouble() * Constants.ROTATIONS_TO_DEGREES_MULTIPLIER;
     }
  
     public void setArmSetpoint(double setpoint) {
@@ -97,18 +97,18 @@ public class Arm extends SubsystemBase {
 
     public void goToArmSetpoint() {
         final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(false);
-        armMotor.setControl(m_request.withPosition(this.setpoint));
+        armMotor.setControl(m_request.withPosition(this.setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
     }
 
     public void sendArmSetpoint(double setpoint) {
         this.setpoint = setpoint;
 
         MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
-        armMotor.setControl(m_request.withPosition(setpoint));
+        armMotor.setControl(m_request.withPosition(setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
     }
 
     public boolean isArmInTolerance() {
-        if (Math.abs(setpoint - getArmMotorEncoder()) < Constants.ARM_SETPOINT_TOLERANCE) {
+        if (Math.abs(setpoint - getArmMotorPositionInDegrees()) < Constants.ARM_SETPOINT_TOLERANCE) {
             return true;
         } else {
             return false;
