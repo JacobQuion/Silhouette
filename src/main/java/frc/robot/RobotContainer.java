@@ -54,17 +54,27 @@ public class RobotContainer {
         operatorController.y().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_SETPOINT_4));
         operatorController.y().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
-        operatorController.start().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_1));
-        operatorController.start().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
+        // operatorController.start().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_1));
+        // operatorController.start().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
         operatorController.back().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_2));
         operatorController.back().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
         //====================Trajectory Controller Bindings====================
-        operatorController.povUp().whileTrue(new ArmTrajectoryCmd(Arm.getInstance(), 0.0, 0.1, 0.15, 0.2, 0.25, 0.3));
-        operatorController.povUp().onFalse(new ArmTrajectoryCmd(Arm.getInstance(), 0.3, 0.25, 0.2, 0.15, 0.1, 0.0));
+        operatorController.povUp().whileTrue(new ArmTrajectoryCmd(Arm.getInstance(), 
+        Constants.ARM_TRAJ_1_IMP, Constants.ARM_TRAJ_2_IMP, Constants.ARM_TRAJ_3_IMP,
+        Constants.ARM_TRAJ_4_IMP, Constants.ARM_TRAJ_5_IMP, Constants.ARM_TRAJ_6_IMP));
 
-        operatorController.povDown().whileTrue(new TurretTrajectoryCmd(Turret.getInstance(), 0.0, 0.2, 0.4, 0.6, 0.8, 1.0));
-        operatorController.povDown().onFalse(new TurretTrajectoryCmd(Turret.getInstance(), 1.0, 0.8, 0.6, 0.4, 0.2, 0.0));
+        operatorController.povUp().onFalse(new ArmTrajectoryCmd(Arm.getInstance(), 
+        Constants.ARM_TRAJ_6_IMP, Constants.ARM_TRAJ_5_IMP, Constants.ARM_TRAJ_4_IMP,
+        Constants.ARM_TRAJ_3_IMP, Constants.ARM_TRAJ_2_IMP, Constants.ARM_TRAJ_1_IMP));
+
+        operatorController.povDown().whileTrue(new TurretTrajectoryCmd(Turret.getInstance(), 
+        Constants.TURRET_TRAJ_1_IMP, Constants.TURRET_TRAJ_2_IMP, Constants.TURRET_TRAJ_3_IMP,
+        Constants.TURRET_TRAJ_4_IMP, Constants.TURRET_TRAJ_5_IMP, Constants.TURRET_TRAJ_6_IMP));
+
+        operatorController.povDown().onFalse(new TurretTrajectoryCmd(Turret.getInstance(), 
+        Constants.TURRET_TRAJ_6_IMP, Constants.TURRET_TRAJ_5_IMP, Constants.TURRET_TRAJ_4_IMP,
+        Constants.TURRET_TRAJ_3_IMP, Constants.TURRET_TRAJ_2_IMP, Constants.TURRET_TRAJ_1_IMP));
   }
 }
