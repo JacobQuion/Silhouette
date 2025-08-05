@@ -13,11 +13,11 @@ public class ArmTrajectoryCmd extends Command {
     private final double armExitSetpoint;
 
     private enum CommandState {
-        STAGE_TRAJECTORY,
-        INTERMEDIATE_1,
-        INTERMEDIATE_2,
-        INTERMEDIATE_3,
-        INTERMEDIATE_4,
+        STAGE_TRAJ,
+        IMP_1,
+        IMP_2,
+        IMP_3,
+        IMP_4,
         EXIT
     }
 
@@ -25,7 +25,7 @@ public class ArmTrajectoryCmd extends Command {
 
     public ArmTrajectoryCmd(Arm arm, double armStageSetpoint, double armIntermediate1Setpoint, 
             double armIntermediate2Setpoint, double armIntermediate3Setpoint, double armIntermediate4Setpoint, double armExitSetpoint) {
-        commandState = CommandState.STAGE_TRAJECTORY;
+        commandState = CommandState.STAGE_TRAJ;
         this.arm = Arm.getInstance();
 
         this.armStageSetpoint = armStageSetpoint;
@@ -48,33 +48,33 @@ public class ArmTrajectoryCmd extends Command {
         SmartDashboard.putString("ArmTrajectoryCmdState", commandState.toString());
 
         switch (commandState) {
-            case STAGE_TRAJECTORY:
+            case STAGE_TRAJ:
                 arm.sendArmSetpoint(armStageSetpoint);
-                commandState = CommandState.INTERMEDIATE_1;
+                commandState = CommandState.IMP_1;
                 break;
 
-            case INTERMEDIATE_1:
+            case IMP_1:
                 if (arm.isArmInTolerance()) {
                     arm.sendArmSetpoint(armIntermediate1Setpoint);
-                    commandState = CommandState.INTERMEDIATE_2;
+                    commandState = CommandState.IMP_2;
                 }
                 break;
 
-            case INTERMEDIATE_2:
+            case IMP_2:
                 if (arm.isArmInTolerance()) {
                     arm.sendArmSetpoint(armIntermediate2Setpoint);
-                    commandState = CommandState.INTERMEDIATE_3;
+                    commandState = CommandState.IMP_3;
                 }
                 break;
 
-            case INTERMEDIATE_3:
+            case IMP_3:
                 if (arm.isArmInTolerance()) {
                     arm.sendArmSetpoint(armIntermediate3Setpoint);
-                    commandState = CommandState.INTERMEDIATE_4;
+                    commandState = CommandState.IMP_4;
                 }
                 break;
 
-            case INTERMEDIATE_4:
+            case IMP_4:
                 if (arm.isArmInTolerance()) {
                     arm.sendArmSetpoint(armIntermediate4Setpoint);
                     commandState = CommandState.EXIT;
@@ -89,14 +89,14 @@ public class ArmTrajectoryCmd extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        commandState = CommandState.STAGE_TRAJECTORY;
+        commandState = CommandState.STAGE_TRAJ;
         System.out.println("ArmTrajectoryCmd Offline");
     }
 
     @Override
     public boolean isFinished() {
         if (commandState == CommandState.EXIT) {
-            commandState = CommandState.STAGE_TRAJECTORY;
+            commandState = CommandState.STAGE_TRAJ;
             return true;
         } else {
             return false;
