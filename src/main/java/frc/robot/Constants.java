@@ -20,7 +20,7 @@ public class Constants {
     public static final double ARM_kVelo = 1.0; //1.0
     public static final double ARM_kAccel = 2.0; //2.0
     public static final double ARM_CURRENT_LIMIT = 40.0;
-    public static final double ARM_SETPOINT_TOLERANCE = 5.0;
+    public static final double ARM_SETPOINT_TOLERANCE = 10.0;
  
     public static final double ARM_ZERO_SETPOINT = 27.0; //0.075
     public static final double ARM_SETPOINT_1 = 50.4;//0.14
@@ -56,9 +56,9 @@ public class Constants {
     public static final double TURRET_FULL_SPIN_SETPOINT_2 = 360.0; //1.0
 
     public static final double TURRET_TRAJ_1_IMP = 0.0; 
-    public static final double TURRET_TRAJ_2_IMP = 72.0; 
-    public static final double TURRET_TRAJ_3_IMP = 144.0; 
-    public static final double TURRET_TRAJ_4_IMP = 216.0; 
-    public static final double TURRET_TRAJ_5_IMP = 288.0; 
-    public static final double TURRET_TRAJ_6_IMP = 360.0; 
+    public static final double TURRET_TRAJ_2_IMP = 15.0; 
+    public static final double TURRET_TRAJ_3_IMP = 30.0; 
+    public static final double TURRET_TRAJ_4_IMP = 45.0; 
+    public static final double TURRET_TRAJ_5_IMP = 60.0; 
+    public static final double TURRET_TRAJ_6_IMP = 90.0; 
 }
