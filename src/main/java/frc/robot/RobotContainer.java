@@ -6,6 +6,7 @@ import frc.robot.commands.ArmJogCmd;
 import frc.robot.commands.ArmSetpointCmd;
 import frc.robot.commands.ArmTrajectoryCmd;
 import frc.robot.commands.ArmZeroOverrideCmd;
+import frc.robot.commands.SwingCmd;
 import frc.robot.commands.TurretJogCmd;
 import frc.robot.commands.TurretZeroOverrideCmd;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
@@ -56,6 +57,10 @@ public class RobotContainer {
 
         // operatorController.start().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_1));
         // operatorController.start().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
+        
+        operatorController.start().onTrue(new SwingCmd(Arm.getInstance(), Constants.ARM_SETPOINT_1));
+        operatorController.start().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
+        operatorController.start().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
 
         operatorController.back().whileTrue(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_FULL_SPIN_SETPOINT_2));
         operatorController.back().onFalse(new TurretSetpointCmd(Turret.getInstance(), Constants.TURRET_ZERO_SETPOINT));
