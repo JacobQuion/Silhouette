@@ -13,11 +13,11 @@ public class TurretTrajectoryCmd extends Command {
     private final double turretExitSetpoint;
 
     private enum CommandState {
-        STAGE_TRAJECTORY,
-        INTERMEDIATE_1,
-        INTERMEDIATE_2,
-        INTERMEDIATE_3,
-        INTERMEDIATE_4,
+        STAGE_TRAJ,
+        IMP_1,
+        IMP_2,
+        IMP_3,
+        IMP_4,
         EXIT
     }
 
@@ -25,7 +25,7 @@ public class TurretTrajectoryCmd extends Command {
 
     public TurretTrajectoryCmd(Turret turret, double turretStageSetpoint, double turretIntermediate1Setpoint, 
             double turretIntermediate2Setpoint, double turretIntermediate3Setpoint, double turretIntermediate4Setpoint, double turretExitSetpoint) {
-        commandState = CommandState.STAGE_TRAJECTORY;
+        commandState = CommandState.STAGE_TRAJ;
         this.turret = Turret.getInstance();
 
         this.turretStageSetpoint = turretStageSetpoint;
@@ -48,33 +48,33 @@ public class TurretTrajectoryCmd extends Command {
         SmartDashboard.putString("TurretTrajectoryCmdState", commandState.toString());
 
         switch (commandState) {
-            case STAGE_TRAJECTORY:
+            case STAGE_TRAJ:
                 turret.sendTurretSetpoint(turretStageSetpoint);
-                commandState = CommandState.INTERMEDIATE_1;
+                commandState = CommandState.IMP_1;
                 break;
 
-            case INTERMEDIATE_1:
+            case IMP_1:
                 if (turret.isTurretInTolerance()) {
                     turret.sendTurretSetpoint(turretIntermediate1Setpoint);
-                    commandState = CommandState.INTERMEDIATE_2;
+                    commandState = CommandState.IMP_2;
                 }
                 break;
 
-            case INTERMEDIATE_2:
+            case IMP_2:
                 if (turret.isTurretInTolerance()) {
                     turret.sendTurretSetpoint(turretIntermediate2Setpoint);
-                    commandState = CommandState.INTERMEDIATE_3;
+                    commandState = CommandState.IMP_3;
                 }
                 break;
 
-            case INTERMEDIATE_3:
+            case IMP_3:
                 if (turret.isTurretInTolerance()) {
                     turret.sendTurretSetpoint(turretIntermediate3Setpoint);
-                    commandState = CommandState.INTERMEDIATE_4;
+                    commandState = CommandState.IMP_4;
                 }
                 break;
 
-            case INTERMEDIATE_4:
+            case IMP_4:
                 if (turret.isTurretInTolerance()) {
                     turret.sendTurretSetpoint(turretIntermediate4Setpoint);
                     commandState = CommandState.EXIT;
@@ -89,14 +89,14 @@ public class TurretTrajectoryCmd extends Command {
 
     @Override
     public void end(boolean interrupted) {
-        commandState = CommandState.STAGE_TRAJECTORY;
+        commandState = CommandState.STAGE_TRAJ;
         System.out.println("TurretTrajectoryCmd Offline");
     }
 
     @Override
     public boolean isFinished() {
         if (commandState == CommandState.EXIT) {
-            commandState = CommandState.STAGE_TRAJECTORY;
+            commandState = CommandState.STAGE_TRAJ;
             return true;
         } else {
             return false;
