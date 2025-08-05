@@ -28,7 +28,7 @@ public class TurretZeroOverrideCmd extends Command {
 
     @Override
     public boolean isFinished() {
-        if (turret.getTurretMotorEncoder() == Constants.ABSOLUTE_ZERO) {
+        if (turret.getTurretMotorPositionInDegrees() == Constants.ABSOLUTE_ZERO) {
             return true;
         } else {
             return false;
