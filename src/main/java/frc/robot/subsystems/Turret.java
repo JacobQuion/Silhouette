@@ -26,12 +26,12 @@ public class Turret extends SubsystemBase {
         turretMotor.setPosition(Constants.ABSOLUTE_ZERO);
 
         //HotRefreshTurretConfig
-        // SmartDashboard.putNumber("Turret kG", 0.0);
-        // SmartDashboard.putNumber("Turret kP", 0.0);
-        // SmartDashboard.putNumber("Turret kI", 0.0);
-        // SmartDashboard.putNumber("Turret kD", 0.0);
-        // SmartDashboard.putNumber("Turret kVelo", 0.0);
-        // SmartDashboard.putNumber("Turret kAccel", 0.0);
+        SmartDashboard.putNumber("Turret kG", 0.0);
+        SmartDashboard.putNumber("Turret kP", 0.0);
+        SmartDashboard.putNumber("Turret kI", 0.0);
+        SmartDashboard.putNumber("Turret kD", 0.0);
+        SmartDashboard.putNumber("Turret kVelo", 0.0);
+        SmartDashboard.putNumber("Turret kAccel", 0.0);
 
         //====================Turret Subsystem====================
         var turretMotorConfigs = new TalonFXConfiguration();
@@ -113,23 +113,23 @@ public class Turret extends SubsystemBase {
         }
     }
 
-    // public void HotRefreshTurretConfig() {
-    //     //General Configurations
-    //     var generalSlotConfigs = new Slot0Configs();
-    //     generalSlotConfigs.kG = SmartDashboard.getNumber("Turret kG", 0.0);
-    //     generalSlotConfigs.kP = SmartDashboard.getNumber("Turret kP", 0.0);
-    //     generalSlotConfigs.kI = SmartDashboard.getNumber("Turret kI", 0.0);
-    //     generalSlotConfigs.kD = SmartDashboard.getNumber("Turret kD", 0.0);
+    public void HotRefreshTurretConfig() {
+        //General Configurations
+        var generalSlotConfigs = new Slot0Configs();
+        generalSlotConfigs.kG = SmartDashboard.getNumber("Turret kG", 0.0);
+        generalSlotConfigs.kP = SmartDashboard.getNumber("Turret kP", 0.0);
+        generalSlotConfigs.kI = SmartDashboard.getNumber("Turret kI", 0.0);
+        generalSlotConfigs.kD = SmartDashboard.getNumber("Turret kD", 0.0);
 
-    //     //Motion Magic
-    //     var motionMagicConfigs = new MotionMagicConfigs();
-    //     motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Turret kVelo", 0.0);
-    //     motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Turret kAccel", 0.0);
+        //Motion Magic
+        var motionMagicConfigs = new MotionMagicConfigs();
+        motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Turret kVelo", 0.0);
+        motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Turret kAccel", 0.0);
 
-    //     //Applies Configs
-    //     turretMotor.getConfigurator().apply(generalSlotConfigs);
-    //     turretMotor.getConfigurator().apply(motionMagicConfigs);
+        //Applies Configs
+        turretMotor.getConfigurator().apply(generalSlotConfigs);
+        turretMotor.getConfigurator().apply(motionMagicConfigs);
 
-    //     System.out.println("HotRefreshTurretConfig Complete");
-    // }
+        System.out.println("HotRefreshTurretConfig Complete");
+    }
 }
