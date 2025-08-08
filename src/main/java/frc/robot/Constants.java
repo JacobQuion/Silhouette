@@ -6,27 +6,32 @@ public class Constants {
     
     //====================Controller====================
     public static final int OPERATOR_CONTROLLER_PORT = 0;
-    public static final double JOYSTICK_JOG_SPEED_MULTIPLIER = 0.1; //0.035
+    public static final double JOYSTICK_JOG_SPEED_MULTIPLIER = 0.1;
     public static final double ROTATIONS_TO_DEGREES_MULTIPLIER = 360.0;
     public static final double DEGREES_TO_ROTATIONS_MULTIPLIER = 1.0 / 360.0;
 
+    //====================Data Collection====================
+    public static final double ARM_PENDULUM_SETPOINT_1 = 0.0;
+    public static final double ARM_PENDULUM_SETPOINT_2 = 45.0;
+    public static final double TURRET_PENDULUM_SETPOINT_1 = 0.0;
+    public static final double TURRET_PENDULUM_SETPOINT_2 = 90.0;
     //====================Arm====================
     public static final int ARM_MOTOR_ID = 10;
 
-    public static final double ARM_kP = 10.0; //10.0
+    public static final double ARM_kP = 15.0; //10.0
     public static final double ARM_kI = 0.0; //0.0
-    public static final double ARM_kD = 0.0; //0.0
+    public static final double ARM_kD = 0.01; //0.0
     public static final double ARM_kG = 0.3; //0.3
-    public static final double ARM_kVelo = 1.0; //1.0
-    public static final double ARM_kAccel = 2.0; //2.0
-    public static final double ARM_CURRENT_LIMIT = 40.0;
-    public static final double ARM_SETPOINT_TOLERANCE = 10.0;
+    public static final double ARM_kVelo = 2.0; //0.5
+    public static final double ARM_kAccel = 4.0; //1.0
+    public static final double ARM_CURRENT_LIMIT = 80.0;
+    public static final double ARM_SETPOINT_TOLERANCE = 5.0;
  
-    public static final double ARM_ZERO_SETPOINT = 27.0; //0.075
-    public static final double ARM_SETPOINT_1 = 50.4;//0.14
-    public static final double ARM_SETPOINT_2 = 68.4; //0.19
-    public static final double ARM_SETPOINT_3 = 90.0; //0.25
-    public static final double ARM_SETPOINT_4 = 108.0; //0.3
+    public static final double ARM_ZERO_SETPOINT = 10.0; //27.0
+    public static final double ARM_SETPOINT_1 = 50.4; //0.14
+    public static final double ARM_SETPOINT_2 = 30.0; //0.19
+    public static final double ARM_SETPOINT_3 = 70.0; //0.25
+    public static final double ARM_SETPOINT_4 = 90.0; //108
 
     public static final double ARM_TRAJ_1_IMP = 0.0; 
     public static final double ARM_TRAJ_2_IMP = 36.0; 
@@ -42,8 +47,8 @@ public class Constants {
     public static final double TURRET_kI = 0.0; //0.0
     public static final double TURRET_kD = 0.0; //0.0
     public static final double TURRET_kG = 0.075; //0.075
-    public static final double TURRET_kVelo = 1.0; //1.0
-    public static final double TURRET_kAccel = 2.0; //2.0
+    public static final double TURRET_kVelo = 0.5; //1.0
+    public static final double TURRET_kAccel = 1.0; //2.0
     public static final double TURRET_CURRENT_LIMIT = 40.0;
     public static final double TURRET_SETPOINT_TOLERANCE = 5.0;
 
