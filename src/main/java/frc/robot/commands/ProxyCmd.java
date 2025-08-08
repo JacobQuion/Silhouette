@@ -1,21 +1,14 @@
 package frc.robot.commands;
-import java.lang.constant.Constable;
-
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants;
 import frc.robot.subsystems.Arm;
 import frc.robot.subsystems.Turret;
 
-public class SEQUENCECmd extends Command {
+public class ProxyCmd extends Command {
     private final Turret turret;
     private final Arm arm;
-    private final double turretStageSetpoint;
-    private final double turretIntermediate1Setpoint;
-    private final double turretIntermediate2Setpoint;
-    private final double turretIntermediate3Setpoint;
-    private final double turretIntermediate4Setpoint;
-    private final double turretExitSetpoint;
 
     private enum CommandState {
         STAGE_TRAJ,
@@ -32,18 +25,10 @@ public class SEQUENCECmd extends Command {
 
     private CommandState commandState;
 
-    public SEQUENCECmd(Turret turret, Arm arm, double turretStageSetpoint, double turretIntermediate1Setpoint, 
-            double turretIntermediate2Setpoint, double turretIntermediate3Setpoint, double turretIntermediate4Setpoint, double turretExitSetpoint) {
+    public ProxyCmd(Turret turret, Arm arm) {
         commandState = CommandState.STAGE_TRAJ;
         this.turret = Turret.getInstance();
         this.arm = Arm.getInstance();
-
-        this.turretStageSetpoint = turretStageSetpoint;
-        this.turretIntermediate1Setpoint = turretIntermediate1Setpoint;
-        this.turretIntermediate2Setpoint = turretIntermediate2Setpoint;
-        this.turretIntermediate3Setpoint = turretIntermediate3Setpoint;
-        this.turretIntermediate4Setpoint = turretIntermediate4Setpoint;
-        this.turretExitSetpoint = turretExitSetpoint;
 
         addRequirements(turret);
         addRequirements(arm);
@@ -51,12 +36,12 @@ public class SEQUENCECmd extends Command {
 
     @Override
     public void initialize() {
-        System.out.println("TurretTrajectoryCmd Online");
+        System.out.println("ProxyCmd Online");
     }
 
     @Override
     public void execute() {
-        SmartDashboard.putString("SEQUENCECmd State", commandState.toString());
+        SmartDashboard.putString("ProxyCmd State", commandState.toString());
 
         switch (commandState) {
             case STAGE_TRAJ:
@@ -93,10 +78,10 @@ public class SEQUENCECmd extends Command {
                 break;
 
             case SEQ_5:
-            if (arm.isArmInTolerance()) {
-                arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
-                commandState = CommandState.SEQ_6;
-            }
+                if (arm.isArmInTolerance()) {
+                    arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
+                    commandState = CommandState.SEQ_6;
+                }
                 break;
 
             case SEQ_6:
@@ -113,10 +98,10 @@ public class SEQUENCECmd extends Command {
                 break;
 
             case SEQ_8:
-            if (arm.isArmInTolerance()) {
-                arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
-                commandState = CommandState.EXIT;
-            }
+                if (arm.isArmInTolerance()) {
+                    arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
+                    commandState = CommandState.EXIT;
+                }
                 break;
 
             case EXIT:
@@ -128,7 +113,7 @@ public class SEQUENCECmd extends Command {
     @Override
     public void end(boolean interrupted) {
         commandState = CommandState.STAGE_TRAJ;
-        System.out.println("TurretTrajectoryCmd Offline");
+        System.out.println("ProxyCmd Offline");
     }
 
     @Override
