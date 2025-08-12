@@ -27,12 +27,12 @@ public class Arm extends SubsystemBase {
         armMotor.setPosition(Constants.ABSOLUTE_ZERO);
 
         //HotRefreshArmConfig
-        SmartDashboard.putNumber("Arm kG", 0.0);
-        SmartDashboard.putNumber("Arm kP", 0.0);
-        SmartDashboard.putNumber("Arm kI", 0.0);
-        SmartDashboard.putNumber("Arm kD", 0.0);
-        SmartDashboard.putNumber("Arm kVelo", 0.0);
-        SmartDashboard.putNumber("Arm kAccel", 0.0);
+        // SmartDashboard.putNumber("Arm kG", 0.0);
+        // SmartDashboard.putNumber("Arm kP", 0.0);
+        // SmartDashboard.putNumber("Arm kI", 0.0);
+        // SmartDashboard.putNumber("Arm kD", 0.0);
+        // SmartDashboard.putNumber("Arm kVelo", 0.0);
+        // SmartDashboard.putNumber("Arm kAccel", 0.0);
 
         //====================Arm Subsystem====================
         var armMotorConfigs = new TalonFXConfiguration();
@@ -48,7 +48,7 @@ public class Arm extends SubsystemBase {
         generalSlotConfigs.kD = Constants.ARM_kD;
         generalSlotConfigs.GravityType = GravityTypeValue.Arm_Cosine;
 
-        //Motion Magic
+        // //Motion Magic
         var motionMagicConfigs = armMotorConfigs.MotionMagic;
         motionMagicConfigs.MotionMagicCruiseVelocity = Constants.ARM_kVelo;
         motionMagicConfigs.MotionMagicAcceleration = Constants.ARM_kAccel;
@@ -97,14 +97,14 @@ public class Arm extends SubsystemBase {
 
     public void goToArmSetpoint() {
         final MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(false);
-        armMotor.setControl(m_request.withPosition(this.setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
+        armMotor.setControl(m_request.withPosition(-this.setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
     }
 
     public void sendArmSetpoint(double setpoint) {
         this.setpoint = setpoint;
 
         MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
-        armMotor.setControl(m_request.withPosition(setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
+        armMotor.setControl(m_request.withPosition(-setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
     }
 
     public boolean isArmInTolerance() {
@@ -115,23 +115,23 @@ public class Arm extends SubsystemBase {
         }
     }
 
-    public void HotRefreshArmConfig() {
-        //General Configurations
-        var generalSlotConfigs = new Slot0Configs();
-        generalSlotConfigs.kG = SmartDashboard.getNumber("Arm kG", 0.0);
-        generalSlotConfigs.kP = SmartDashboard.getNumber("Arm kP", 0.0);
-        generalSlotConfigs.kI = SmartDashboard.getNumber("Arm kI", 0.0);
-        generalSlotConfigs.kD = SmartDashboard.getNumber("Arm kD", 0.0);
+    // public void HotRefreshArmConfig() {
+    //     //General Configurations
+    //     var generalSlotConfigs = new Slot0Configs();
+    //     generalSlotConfigs.kG = SmartDashboard.getNumber("Arm kG", 0.0);
+    //     generalSlotConfigs.kP = SmartDashboard.getNumber("Arm kP", 0.0);
+    //     generalSlotConfigs.kI = SmartDashboard.getNumber("Arm kI", 0.0);
+    //     generalSlotConfigs.kD = SmartDashboard.getNumber("Arm kD", 0.0);
 
-        //Motion Magic
-        var motionMagicConfigs = new MotionMagicConfigs();
-        motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Arm kVelo", 0.0);
-        motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Arm kAccel", 0.0);
+    //     //Motion Magic
+    //     var motionMagicConfigs = new MotionMagicConfigs();
+    //     motionMagicConfigs.MotionMagicCruiseVelocity = SmartDashboard.getNumber("Arm kVelo", 0.0);
+    //     motionMagicConfigs.MotionMagicAcceleration = SmartDashboard.getNumber("Arm kAccel", 0.0);
 
-        //Applies Configs
-        armMotor.getConfigurator().apply(generalSlotConfigs);
-        armMotor.getConfigurator().apply(motionMagicConfigs);
+    //     //Applies Configs
+    //     armMotor.getConfigurator().apply(generalSlotConfigs);
+    //     armMotor.getConfigurator().apply(motionMagicConfigs);
 
-        System.out.println("HotRefreshArmConfig Complete");
-    }
+    //     System.out.println("HotRefreshArmConfig Complete");
+    // }
 }
