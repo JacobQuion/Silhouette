@@ -38,7 +38,7 @@ public class Turret extends SubsystemBase {
 
         //Brake Mode
         turretMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
-        turretMotorConfigs.Feedback.SensorToMechanismRatio = Constants.SENSOR_TO_MECHANISM_RATIO; 
+        turretMotorConfigs.Feedback.SensorToMechanismRatio = Constants.TURRET_SENSOR_TO_MECHANISM_RATIO; 
         turretMotorConfigs.Feedback.RotorToSensorRatio = Constants.ROTOR_TO_SENSOR_RATIO;
 
         //General Configurations
