@@ -38,6 +38,8 @@ public class Turret extends SubsystemBase {
 
         //Brake Mode
         turretMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        turretMotorConfigs.Feedback.SensorToMechanismRatio = Constants.SENSOR_TO_MECHANISM_RATIO; 
+        turretMotorConfigs.Feedback.RotorToSensorRatio = Constants.ROTOR_TO_SENSOR_RATIO;
 
         //General Configurations
         var generalSlotConfigs = turretMotorConfigs.Slot0;
@@ -102,7 +104,7 @@ public class Turret extends SubsystemBase {
         this.setpoint = setpoint;
 
         MotionMagicVoltage m_request = new MotionMagicVoltage(Constants.ABSOLUTE_ZERO).withEnableFOC(true);
-        turretMotor.setControl(m_request.withPosition(setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER));
+        turretMotor.setControl(m_request.withPosition(setpoint * Constants.DEGREES_TO_ROTATIONS_MULTIPLIER)); 
     }
 
     public boolean isTurretInTolerance() {
