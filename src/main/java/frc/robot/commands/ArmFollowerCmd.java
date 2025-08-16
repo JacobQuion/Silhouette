@@ -55,7 +55,7 @@ public class ArmFollowerCmd extends Command {
                 break;
 
             case LEVEL_1:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
                     turret.sendTurretSetpoint(Constants.TURRET_SETPOINT_A);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_2;
@@ -63,23 +63,23 @@ public class ArmFollowerCmd extends Command {
                 break;          
 
             case LEVEL_2:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_C);
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
+                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_D);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_3;
                 }
                 break;
 
             case LEVEL_3:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
+                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_LOW);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_4;
                 }
                 break;
 
             case LEVEL_4:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
                     turret.sendTurretSetpoint(Constants.TURRET_SETPOINT_D);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_5;
@@ -87,23 +87,23 @@ public class ArmFollowerCmd extends Command {
                 break;
 
             case LEVEL_5:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_C);
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
+                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_D);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_6;
                 }
                 break;
 
             case LEVEL_6:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
+                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_LOW);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_7;
                 }
                 break;
 
             case LEVEL_7:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
                     turret.sendTurretSetpoint(Constants.TURRET_SETPOINT_E);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_8;
@@ -111,23 +111,23 @@ public class ArmFollowerCmd extends Command {
                 break;
 
             case LEVEL_8:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_C);
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
+                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_D);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_9;
                 }
                 break;
 
             case LEVEL_9:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    arm.sendArmSetpoint(Constants.ARM_ZERO_SETPOINT);
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
+                    arm.sendArmSetpoint(Constants.ARM_SETPOINT_LOW);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.RESET_LEVEL;
                 }
                 break;
 
             case RESET_LEVEL:
-                if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
+                if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.ZERO_ROUTINE;
                 }
