@@ -39,6 +39,8 @@ public class Arm extends SubsystemBase {
 
         //Brake Mode
         armMotorConfigs.MotorOutput.NeutralMode = NeutralModeValue.Brake;
+        armMotorConfigs.Feedback.SensorToMechanismRatio = Constants.SENSOR_TO_MECHANISM_RATIO; 
+        armMotorConfigs.Feedback.RotorToSensorRatio = Constants.ROTOR_TO_SENSOR_RATIO;
 
         //General Configurations
         var generalSlotConfigs = armMotorConfigs.Slot0;
