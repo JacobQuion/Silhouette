@@ -5,7 +5,8 @@ public class Constants {
     public static final double ABSOLUTE_ZERO = 0.0;
     public static final int OPERATOR_CONTROLLER_PORT = 0;
     public static final double JOYSTICK_JOG_SPEED_MULTIPLIER = 0.1;
-    public static final double SENSOR_TO_MECHANISM_RATIO = 4.0 / 1.0;
+    public static final double ARM_SENSOR_TO_MECHANISM_RATIO = 12.0 / 1.0;
+    public static final double TURRET_SENSOR_TO_MECHANISM_RATIO = 4.0 / 1.0;
     public static final double ROTOR_TO_SENSOR_RATIO = 1.0 / 1.0;
     public static final double ROTATIONS_TO_DEGREES_MULTIPLIER = 360.0;
     public static final double DEGREES_TO_ROTATIONS_MULTIPLIER = 1.0 / 360.0;
