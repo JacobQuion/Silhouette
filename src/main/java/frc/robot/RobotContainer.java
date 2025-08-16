@@ -7,6 +7,7 @@ import frc.robot.commands.ArmJogCmd;
 import frc.robot.commands.ArmLoopCmd;
 import frc.robot.commands.ArmSetpointCmd;
 import frc.robot.commands.ArmZeroOverrideCmd;
+import frc.robot.commands.SweepCmd;
 import frc.robot.commands.TurretFollowerCmd;
 import frc.robot.commands.TurretJogCmd;
 import frc.robot.commands.TurretLoopCmd;
@@ -23,6 +24,8 @@ public class RobotContainer {
 
   private void configureBindings() {
         //====================Arm Subsystem====================
+        operatorController.povUp().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_STAGE_DISABLE_SETPOINT));
+
         operatorController.leftTrigger().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_B));
         operatorController.leftTrigger().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
 
@@ -38,7 +41,8 @@ public class RobotContainer {
   
         //====================Data Collection====================
         operatorController.a().onTrue(new ArmLoopCmd(Arm.getInstance(), Turret.getInstance()));
-        operatorController.b().onTrue(new TurretLoopCmd(Arm.getInstance(), Turret.getInstance()));
+        // operatorController.b().onTrue(new TurretLoopCmd(Arm.getInstance(), Turret.getInstance()));
+        operatorController.b().onTrue(new SweepCmd(Arm.getInstance(), Turret.getInstance()));
         operatorController.x().onTrue(new ArmFollowerCmd(Arm.getInstance(), Turret.getInstance()));
         operatorController.y().onTrue(new TurretFollowerCmd(Arm.getInstance(), Turret.getInstance()));
   }
