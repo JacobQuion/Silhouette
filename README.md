@@ -2,6 +2,7 @@
 
 <img width="298" height="296" alt="image" src="https://github.com/user-attachments/assets/dc609eac-65b1-405c-a857-6ac1b09a5e7c" />
 
+## 
 This repository contains code for Silhouette, an industrial-grade turret mechanism developed in collaboration with UCI's Biorobotics Laboratory. This project tightly integrates precise hardware with advanced software to explore the statistical accuracy of the Apple Watch with the help of dynamic motion profiling, synthetic data generation, and direct comparison with an array of inertial measurement units (IMU).
 
 ## **Highlights**
