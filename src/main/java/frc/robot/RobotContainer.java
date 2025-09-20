@@ -24,9 +24,9 @@ public class RobotContainer {
 
   private void configureBindings() {
         //====================Arm Subsystem====================
-        operatorController.povUp().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_STAGE_DISABLE_SETPOINT));
+        //operatorController.povUp().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_STAGE_DISABLE_SETPOINT));
 
-        operatorController.leftTrigger().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_B));
+        operatorController.leftTrigger().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_D));
         operatorController.leftTrigger().onFalse(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_ZERO_SETPOINT));
 
         operatorController.leftBumper().whileTrue(new ArmSetpointCmd(Arm.getInstance(), Constants.ARM_SETPOINT_C));

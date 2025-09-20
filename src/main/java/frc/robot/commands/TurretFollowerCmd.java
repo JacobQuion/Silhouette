@@ -81,7 +81,7 @@ public class TurretFollowerCmd extends Command {
 
             case LEVEL_4:
                 if (Timer.getFPGATimestamp() - stepStartTime >= 1.0) {
-                    turret.sendTurretSetpoint(Constants.TURRET_SETPOINT_D);
+                    turret.sendTurretSetpoint(Constants.TURRET_ZERO_SETPOINT);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_5;
                 }

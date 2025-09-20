@@ -80,7 +80,7 @@ public class ArmFollowerCmd extends Command {
 
             case LEVEL_4:
                 if (Timer.getFPGATimestamp() - stepStartTime >= 2.0) {
-                    turret.sendTurretSetpoint(Constants.TURRET_SETPOINT_D);
+                    turret.sendTurretSetpoint(Constants.TURRET_ZERO_SETPOINT);
                     stepStartTime = Timer.getFPGATimestamp();
                     commandState = CommandState.LEVEL_5;
                 }

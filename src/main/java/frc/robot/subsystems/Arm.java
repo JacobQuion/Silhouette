@@ -110,7 +110,7 @@ public class Arm extends SubsystemBase {
     }
 
     public boolean isArmInTolerance() {
-        if (Math.abs(setpoint - getArmMotorPositionInDegrees()) < Constants.ARM_SETPOINT_TOLERANCE) {
+        if (Math.abs(setpoint + getArmMotorPositionInDegrees()) < Constants.ARM_SETPOINT_TOLERANCE) {
             return true;
         } else {
             return false;
