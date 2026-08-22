@@ -1,4 +1,4 @@
-# **Silhouette-Public**
+# **Silhouette**
 
 <img width="298" height="296" alt="image" src="https://github.com/user-attachments/assets/dc609eac-65b1-405c-a857-6ac1b09a5e7c" />
 
